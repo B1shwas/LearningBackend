@@ -9,8 +9,8 @@ const UrlRouter = require("./routes/url.routes");
 const staticRoute = require("./routes/static-route.routes");
 const userRoute = require("./routes/user.routes");
 const {
-  restrictToLoggedInUserOnly,
-  checkAuth,
+  checkForAuthentication,
+  restrictTo,
 } = require("./middlewares/auth.middlewares");
 
 const app = express();
@@ -25,9 +25,10 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
-app.use("/url", restrictToLoggedInUserOnly, UrlRouter);
-app.use("/", checkAuth, staticRoute);
+app.use("/url", restrictTo(["admin", "user"]), UrlRouter);
+app.use("/", staticRoute);
 app.use("/user", userRoute);
 
 app.listen(PORT, () => {

@@ -12,6 +12,7 @@ const generateShortURL = async (req, res) => {
     redirectURL: body.url,
     visitHistory: [],
     createdBy: req.user._id,
+    role: req.role,
   });
 
   return res.render("home", { id: shortID });
