@@ -3,7 +3,7 @@ const {
   generateShortURL,
   redirectURL,
   handleAnalytics,
-} = require("../controllers/url.controleers");
+} = require("../controllers/url.controllers");
 const URL = require("../models/url.model");
 
 const router = express.Router();

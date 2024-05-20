@@ -11,9 +11,10 @@ const generateShortURL = async (req, res) => {
     shortId: shortID,
     redirectURL: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
 
-  return res.json({ id: shortID });
+  return res.render("home", { id: shortID });
 };
 
 const redirectURL = async (req, res) => {
@@ -28,7 +29,7 @@ const redirectURL = async (req, res) => {
       },
     }
   );
-  res.redirect(entry.redirectURL);
+  res.redirect(entry?.redirectURL);
 };
 
 const handleAnalytics = async (req, res) => {
